@@ -1,16 +1,15 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  // This ensures GitHub Pages maps your styles, layout, and images to your subfolder path
   base: "/sleepoutsidewdd330/", 
   
   root: "src/",
 
   build: {
-    outDir: "../dist",
+    // Change this from ../dist to ../docs
+    outDir: "../docs",
     rollupOptions: {
       input: {
-        // Standard relative paths from the project root folder
         main: "src/index.html",
         cart: "src/cart/index.html",
         checkout: "src/checkout/index.html",
