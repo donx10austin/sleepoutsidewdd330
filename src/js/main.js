@@ -1,9 +1,9 @@
 // src/js/main.js
-import { qsAll, setClick, addToWishlist } from './utils.mjs';
+import { qsAll, setClick, addToWishlist } from "./utils.mjs";
 
 function initWishlistHandlers() {
   // Find all wishlist buttons matching our product cards
-  const wishlistButtons = qsAll('.wishlist-btn');
+  const wishlistButtons = qsAll(".wishlist-btn");
 
   wishlistButtons.forEach(button => {
     // Bind click/touch handlers to every single button uniquely
@@ -28,8 +28,8 @@ function initWishlistHandlers() {
 }
 
 // Run setup logic immediately upon module load
-document.addEventListener('DOMContentLoaded', initWishlistHandlers);
+document.addEventListener("DOMContentLoaded", initWishlistHandlers);
 // Fallback execute in case DOMContentLoaded has already fired
-if (document.readyState === 'interactive' || document.readyState === 'complete') {
+if (document.readyState === "interactive" || document.readyState === "complete") {
   initWishlistHandlers();
 }

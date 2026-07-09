@@ -28,7 +28,10 @@ export function setLocalStorage(key, data) {
 
 // Set a listener for both touchend and click
 export function setClick(elementOrSelector, callback) {
-  const element = typeof elementOrSelector === "string" ? qs(elementOrSelector) : elementOrSelector;
+  const element =
+    typeof elementOrSelector === "string"
+      ? qs(elementOrSelector)
+      : elementOrSelector;
   if (!element) return;
 
   element.addEventListener("touchend", (event) => {
@@ -39,7 +42,7 @@ export function setClick(elementOrSelector, callback) {
 }
 
 // --- Wishlist Helpers ---
-const WISHLIST_KEY = 'so-wishlist';
+const WISHLIST_KEY = "so-wishlist";
 
 export function getWishlist() {
   return getLocalStorage(WISHLIST_KEY) || [];
@@ -47,8 +50,8 @@ export function getWishlist() {
 
 export function addToWishlist(product) {
   const list = getWishlist();
-  const exists = list.some(item => item.id === product.id);
-  
+  const exists = list.some((item) => item.id === product.id);
+
   if (!exists) {
     list.push(product);
     setLocalStorage(WISHLIST_KEY, list);
