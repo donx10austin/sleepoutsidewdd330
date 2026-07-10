@@ -3,7 +3,7 @@ import { convertToJson } from "./utils.mjs";
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    this.path = `../json/${this.category}.json`;
+    this.path = `${import.meta.env.BASE_URL}json/${this.category}.json`;
   }
   async getData() {
     const res = await fetch(this.path);
