@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, mb--individual-task-report2]
+    branches: [main, mb--individual2]
   workflow_dispatch:
 
 permissions:
