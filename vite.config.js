@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   root: "src/",
 
-  base: "./sleepoutsidewdd330/",
+  base: "/sleepoutsidewdd330/",
 
   build: {
     outDir: "../dist",
