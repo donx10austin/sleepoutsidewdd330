@@ -2,9 +2,7 @@ name: Check Lint and Format
 
 on:
   push:
-    branches:
-      - "**"
-      - "!gh-pages"
+    branches: ["**"]
   pull_request:
     branches: [main]
 
