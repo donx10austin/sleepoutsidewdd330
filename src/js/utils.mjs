@@ -1,5 +1,3 @@
-// src/js/utils.js
-
 // Wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -39,6 +37,28 @@ export function setClick(elementOrSelector, callback) {
     callback();
   });
   element.addEventListener("click", callback);
+}
+
+// Get URL parameters
+export function getParam(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  return urlParams.get(param);
+}
+
+// Helper to render a list with a template
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false,
+) {
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  const htmlStrings = list.map(templateFn);
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
 // --- Wishlist Helpers ---
