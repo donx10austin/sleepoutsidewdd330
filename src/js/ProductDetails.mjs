@@ -8,7 +8,10 @@ function productDetailsTemplate(product) {
   productImage.src = import.meta.env.BASE_URL + product.Image.substring(1);
   productImage.alt = product.NameWithoutBrand;
 
-  document.getElementById("productPrice").textContent = product.FinalPrice;
+  document.getElementById("productSuggestedRetailPrice").textContent =
+    `$${product.SuggestedRetailPrice} (suggested retail price)`;
+  document.getElementById("productPrice").textContent =
+    `$${product.FinalPrice} (sale price)`;
   document.getElementById("productColor").textContent =
     product.Colors[0].ColorName;
   document.getElementById("productDesc").innerHTML =
