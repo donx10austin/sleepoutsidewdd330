@@ -39,7 +39,18 @@ export function setClick(elementOrSelector, callback) {
   element.addEventListener("click", callback);
 }
 
+<<<<<<< HEAD
 // Get URL parameters
+=======
+export async function convertToJson(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("Bad Response");
+  }
+}
+
+>>>>>>> 5c470f30e8602cb09b061a9c13cf741338a26520
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -78,4 +89,18 @@ export function addToWishlist(product) {
     return true; // Item was successfully added
   }
   return false; // Item already existed
+}
+
+export function renderListWithTemplate(
+  template,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false,
+) {
+  const htmlStrings = list.map(template);
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }

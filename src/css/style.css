@@ -9,6 +9,7 @@
   --secondary-color: #525b0f;
   --tertiary-color: #8a470c;
   --light-grey: #d0d0d0;
+  --medium-grey: #606060;
   --dark-grey: #303030;
 
   /* sizes */
@@ -219,6 +220,11 @@ button:hover {
 .product-card h3,
 .product-card p {
   margin: 0.5em 0;
+}
+
+.product-card__suggested-retail-price {
+  text-decoration: line-through;
+  color: var(--medium-grey);
 }
 
 .card__brand {

@@ -1,26 +1,24 @@
-// Attach the listener to a static container (e.g., the product list or body)
-document.addEventListener("click", (event) => {
-  // Check if the clicked element has the class "wishlist-btn"
-  if (event.target.classList.contains("wishlist-btn")) {
-    const button = event.target;
+import { addToWishlist } from "./wishlist.js";
+// ... (keep your team's other imports here)
 
-    const product = {
-      id: button.dataset.id,
-      name: button.dataset.name,
-      price: button.dataset.price,
-      img: button.dataset.img,
-    };
+document.addEventListener("DOMContentLoaded", () => {
+  // ... (keep your team's existing code here, like header/footer loading)
 
-    addToWishlist(product);
-    alert(`${product.name} added to wishlist!`);
+  // ADD YOUR WISHLIST LOGIC HERE:
+  const mainContainer = document.querySelector("main");
+  if (mainContainer) {
+    mainContainer.addEventListener("click", (event) => {
+      const button = event.target.closest(".wishlist-btn");
+      if (button) {
+        const product = {
+          id: button.dataset.id,
+          name: button.dataset.name,
+          price: button.dataset.price,
+          img: button.dataset.img,
+        };
+        addToWishlist(product);
+        alert(`${product.name} added to wishlist!`);
+      }
+    });
   }
 });
-
-function addToWishlist(product) {
-  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-  if (!wishlist.find((item) => item.id === product.id)) {
-    wishlist.push(product);
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  }
-}
