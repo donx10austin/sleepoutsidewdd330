@@ -28,3 +28,23 @@ export function getParam(param) {
   const product = urlParams.get(param);
   return product;
 }
+
+// Renders a list of items using a template function
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = 'afterbegin',
+  clear = false
+) {
+  // Clear the element if requested
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+
+  // Map each item through the template function to get HTML strings
+  const htmlStrings = list.map(templateFn);
+
+  // Insert all HTML strings into the parent element
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+}
