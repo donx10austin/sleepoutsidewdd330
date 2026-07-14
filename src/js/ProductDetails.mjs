@@ -5,7 +5,8 @@ function productDetailsTemplate(product) {
   document.querySelector("h3").textContent = product.NameWithoutBrand;
 
   const productImage = document.getElementById("productImage");
-  productImage.src = import.meta.env.BASE_URL + product.Image.substring(1);
+  // FIX: Use PrimaryLarge for the product detail page
+  productImage.src = product.PrimaryLarge;
   productImage.alt = product.NameWithoutBrand;
 
   document.getElementById("productSuggestedRetailPrice").textContent =
@@ -20,26 +21,24 @@ function productDetailsTemplate(product) {
   document.getElementById("addToCart").dataset.id = product.Id;
 }
 
-export default class ProductDetail {
+export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
     this.product = {};
     this.dataSource = dataSource;
   }
+
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
-
     this.renderProductDetails();
-
-    document
-      .getElementById("addToCart")
-      .addEventListener("click", this.addProductToCart.bind(this));
   }
+
   addProductToCart() {
     const cartList = getLocalStorage("so-cart") || [];
     cartList.push(this.product);
     setLocalStorage("so-cart", cartList);
   }
+
   renderProductDetails() {
     productDetailsTemplate(this.product);
   }

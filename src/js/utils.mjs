@@ -39,9 +39,7 @@ export function setClick(elementOrSelector, callback) {
   element.addEventListener("click", callback);
 }
 
-<<<<<<< HEAD
-// Get URL parameters
-=======
+// Helper to convert response to JSON
 export async function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -50,7 +48,7 @@ export async function convertToJson(res) {
   }
 }
 
->>>>>>> 5c470f30e8602cb09b061a9c13cf741338a26520
+// Get URL parameters
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -63,7 +61,7 @@ export function renderListWithTemplate(
   parentElement,
   list,
   position = "afterbegin",
-  clear = false,
+  clear = true, // Defaulting clear to true is safer for dynamic lists
 ) {
   if (clear) {
     parentElement.innerHTML = "";
@@ -86,21 +84,7 @@ export function addToWishlist(product) {
   if (!exists) {
     list.push(product);
     setLocalStorage(WISHLIST_KEY, list);
-    return true; // Item was successfully added
+    return true;
   }
-  return false; // Item already existed
-}
-
-export function renderListWithTemplate(
-  template,
-  parentElement,
-  list,
-  position = "afterbegin",
-  clear = false,
-) {
-  const htmlStrings = list.map(template);
-  if (clear) {
-    parentElement.innerHTML = "";
-  }
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+  return false;
 }
