@@ -1,4 +1,8 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import {
+  getLocalStorage,
+  loadHeaderFooter,
+  setLocalStorage,
+} from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
@@ -29,12 +33,11 @@ function cartItemTemplate(item) {
     </li>
   `;
 }
-renderCartContents();
 
 function removeFromCart(id) {
   let cartItems = getLocalStorage("so-cart");
 
-  cartItems = cartItems.filter(item => item.Id !== id);
+  cartItems = cartItems.filter((item) => item.Id !== id);
 
   setLocalStorage("so-cart", cartItems);
 
@@ -49,3 +52,6 @@ function attachRemoveListeners() {
     });
   });
 }
+
+loadHeaderFooter();
+renderCartContents();

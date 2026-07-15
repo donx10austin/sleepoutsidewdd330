@@ -50,3 +50,41 @@ export function renderListWithTemplate(
   }
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+
+export async function loadTemplate(path) {
+  try {
+    const response = await fetch(path);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const template = await response.text();
+
+    return template;
+  } catch (error) {
+    // console.error(error);
+  }
+}
+
+export async function loadHeaderFooter() {
+  const headerTemplate = await loadTemplate(
+    import.meta.env.BASE_URL + "/partials/header.html",
+  );
+  const footerTemplate = await loadTemplate(
+    import.meta.env.BASE_URL + "/partials/footer.html",
+  );
+
+  const headerElement = document.getElementById("header");
+  const footerElement = document.getElementById("footer");
+
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+}
