@@ -6,5 +6,5 @@ const listElement = document.getElementById("product-list");
 const category = "tents";
 const products = new ProductData(category);
 const productList = new ProductList(category, products, listElement);
-await loadHeaderFooter();
+loadHeaderFooter();
 productList.init();
