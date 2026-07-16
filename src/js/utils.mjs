@@ -80,13 +80,12 @@ export async function loadHeaderFooter() {
   let footerTemplate = await loadTemplate(baseUrl + "partials/footer.html");
 
   // Replace absolute paths with base URL prefixed paths
-  const replaceAbsolutePaths = (template) => {
-    return template
+  const replaceAbsolutePaths = (template) =>
+    template
       .replace(/href="\/sleepoutsidewdd330\//g, `href="${baseUrl}`)
       .replace(/src="\/sleepoutsidewdd330\//g, `src="${baseUrl}`)
       .replace(/href="\//g, `href="${baseUrl}`)
       .replace(/src="\//g, `src="${baseUrl}`);
-  };
 
   headerTemplate = replaceAbsolutePaths(headerTemplate);
   footerTemplate = replaceAbsolutePaths(footerTemplate);
