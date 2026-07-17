@@ -1,14 +1,14 @@
-HEAD;
-// src/js/main.js
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 import { addToWishlist, loadHeaderFooter, qs } from "./utils.mjs";
 
-const dataSource = new ProductData("tents");
+const category = "tents";
+const dataSource = new ProductData(category);
 const listElement = qs(".product-list");
-const myList = new ProductList("tents", dataSource, listElement);
+const myList = new ProductList(category, dataSource, listElement);
 
 async function init() {
+  await loadHeaderFooter();
   await myList.init();
 
   // Event Delegation: Listen for clicks on the list, filter for the button
@@ -32,11 +32,3 @@ async function init() {
 }
 
 init();
-
-const listElement = document.getElementById("product-list");
-const category = "tents";
-const products = new ProductData(category);
-const productList = new ProductList(category, products, listElement);
-loadHeaderFooter();
-productList.init();
-origin / main;
