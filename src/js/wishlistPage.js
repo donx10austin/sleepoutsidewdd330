@@ -18,7 +18,7 @@ function renderWishlist() {
   const container = qs("#wishlist-container");
 
   // If the wishlist is empty, show a friendly message
-  if (wishlistItems.length === 0) {
+  if (!wishlistItems || wishlistItems.length === 0) {
     container.innerHTML = `<p>Your wishlist is currently empty. Go add some tents!</p>`;
     return;
   }

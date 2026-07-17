@@ -25,6 +25,11 @@ export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
+// Add this function:
+export function getWishlist() {
+  return getLocalStorage("wishlist") || [];
+}
+
 export function addToWishlist(product) {
   let wishlist = getLocalStorage("wishlist") || [];
   // Check if already exists
