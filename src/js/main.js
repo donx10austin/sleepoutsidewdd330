@@ -1,35 +1,29 @@
 // src/js/main.js
-import { qsAll, setClick, addToWishlist } from './utils.js';
+import ProductData from "./ProductData.mjs";
+import ProductList from "./ProductList.mjs";
+import { qs, addToWishlist } from './utils.mjs';
 
-function initWishlistHandlers() {
-  // Find all wishlist buttons matching our product cards
-  const wishlistButtons = qsAll('.wishlist-btn');
+const dataSource = new ProductData("tents");
+const listElement = qs(".product-list");
+const myList = new ProductList("tents", dataSource, listElement);
 
-  wishlistButtons.forEach(button => {
-    // Bind click/touch handlers to every single button uniquely
-    setClick(button, () => {
-      // Build a dynamic product entity from the dataset parameters stored in the HTML structure
-      const product = {
-        id: button.dataset.id,
-        name: button.dataset.name,
-        price: button.dataset.price,
-        image: button.dataset.img
-      };
-
-      const wasAdded = addToWishlist(product);
-
-      if (wasAdded) {
-        alert(`🎉 ${product.name} has been added to your wishlist!`);
-      } else {
-        alert(`👀 ${product.name} is already in your wishlist!`);
-      }
-    });
+async function init() {
+  await myList.init();
+  
+  // Event Delegation: Listen for clicks on the list, filter for the button
+  listElement.addEventListener("click", (e) => {
+    if (e.target.classList.contains("wishlist-btn")) {
+       const btn = e.target;
+       const product = {
+         id: btn.dataset.id,
+         name: btn.dataset.name,
+         price: btn.dataset.price,
+         image: btn.dataset.img
+       };
+       const wasAdded = addToWishlist(product);
+       alert(wasAdded ? `🎉 ${product.name} added!` : `👀 ${product.name} is already there!`);
+    }
   });
 }
 
-// Run setup logic immediately upon module load
-document.addEventListener('DOMContentLoaded', initWishlistHandlers);
-// Fallback execute in case DOMContentLoaded has already fired
-if (document.readyState === 'interactive' || document.readyState === 'complete') {
-  initWishlistHandlers();
-}
+init();

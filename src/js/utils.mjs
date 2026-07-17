@@ -1,30 +1,26 @@
-// src/js/utils.mjs
+// Add these to your existing src/js/utils.mjs
 
-// Helper to select elements
-export function qs(selector, parent = document) {
-  return parent.querySelector(selector);
+export function qsAll(selector, parent = document) {
+  return parent.querySelectorAll(selector);
 }
 
-// Helper for local storage
-export function setLocalStorage(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
+export function setClick(selector, callback) {
+  // Can be a selector string or a DOM element
+  const element = typeof selector === 'string' ? qs(selector) : selector;
+  element.addEventListener("touchend", (event) => {
+    event.preventDefault();
+    callback();
+  });
+  element.addEventListener("click", callback);
 }
 
-export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
-}
-
-// NEW: Helper to get URL parameters
-export function getParam(param) {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  return urlParams.get(param);
-}
-
-// Optional: Helper to render template literals
-export function renderWithTemplate(template, parent, data, callback) {
-  parent.insertAdjacentHTML("afterbegin", template);
-  if (callback) {
-    callback(data);
+export function addToWishlist(product) {
+  let wishlist = getLocalStorage("wishlist") || [];
+  // Check if already exists
+  if (!wishlist.find(item => item.id === product.id)) {
+    wishlist.push(product);
+    setLocalStorage("wishlist", wishlist);
+    return true; // Added
   }
+  return false; // Already exists
 }
