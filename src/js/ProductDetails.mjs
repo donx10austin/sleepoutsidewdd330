@@ -53,7 +53,28 @@ export default class ProductDetail {
   }
   addProductToCart() {
     const cartList = getLocalStorage("so-cart") || [];
-    cartList.push(this.product);
+
+    if (!cartList.some((item) => item.Id === this.product.Id)) {
+      // Set the initial quantity to 1
+      this.product.Quantity = 1;
+
+      // Add the product to the cart list if it doesn't exist
+      cartList.push(this.product);
+    } else {
+      // If product already exists in the cart, then increase the quantity by 1
+      const existingProduct = cartList.find(
+        (item) => item.Id === this.product.Id,
+      );
+
+      // Increase the quantity of the existing product
+      existingProduct.Quantity = (existingProduct.Quantity || 1) + 1;
+
+      // Update the cart list with the modified product
+      cartList.map((item) =>
+        item.Id === this.product.Id ? existingProduct : item,
+      );
+    }
+
     setLocalStorage("so-cart", cartList);
   }
   renderProductDetails() {
