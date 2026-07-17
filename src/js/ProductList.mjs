@@ -1,4 +1,4 @@
-import { renderListWithTemplate } from "./utils.mjs";
+import { renderWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
   // Week02 Individual-Task2: Discount Indicator
@@ -42,12 +42,13 @@ export default class ProductList {
   }
 
   async init() {
-    // Requirements Update: Pass the category to the API call
     const list = await this.dataSource.getData(this.category);
     this.renderList(list);
   }
 
   renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list);
+    // UPDATED: Use renderWithTemplate and map the items to templates
+    const htmlItems = list.map((item) => productCardTemplate(item));
+    renderWithTemplate(htmlItems.join(""), this.listElement);
   }
 }
