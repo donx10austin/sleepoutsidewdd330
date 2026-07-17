@@ -228,6 +228,30 @@ button {
   font-size: 0.9rem;
 }
 
+/*Week03 category product display */
+.category-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.category-grid a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.category-grid img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
 /* Start cart list card styles */
 .cart-card {
   display: grid;
@@ -279,6 +303,17 @@ button {
   .cart-card {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
+  }
+
+  /* week03 category-display */
+  .category-grid {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .category-grid a {
+    flex: 1;
   }
 }
 
