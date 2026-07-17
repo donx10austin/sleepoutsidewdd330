@@ -26,14 +26,12 @@ export async function loadHeaderFooter() {
   renderWithTemplate(footerTemplate, footerElement);
 }
 
-// Added this function so it can be imported in main.js
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
 
-// Ensure you also export these if they are used elsewhere in your project
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
@@ -44,4 +42,16 @@ export function setLocalStorage(key, value) {
 
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
+}
+
+export function addToWishlist(product) {
+  const wishlist = getLocalStorage("wishlist") || [];
+  // Check if it's already there to avoid duplicates
+  const exists = wishlist.find((item) => item.id === product.id);
+  if (!exists) {
+    wishlist.push(product);
+    setLocalStorage("wishlist", wishlist);
+    return true; // Added
+  }
+  return false; // Already exists
 }
