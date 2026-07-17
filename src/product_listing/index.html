@@ -39,6 +39,30 @@
           </a>
         </li>
       </ul>
+
+      <!-- Search functionality -->
+      <div class="search-container">
+        <div class="search-wrapper">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search products by name..."
+            aria-label="Search products"
+            class="search-input"
+            autocomplete="off"
+          />
+          <button
+            id="clear-search"
+            class="clear-search"
+            aria-label="Clear search"
+          >
+            &times;
+          </button>
+        </div>
+        <p id="results-count" class="results-count"></p>
+      </div>
+
+      <!-- Product list will be rendered here -->
       <section id="product-list" class="product-list"></section>
     </main>
 
