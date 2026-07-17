@@ -9,6 +9,7 @@
   --secondary-color: #525b0f;
   --tertiary-color: #8a470c;
   --light-grey: #d0d0d0;
+  --medium-grey: #606060;
   --dark-grey: #303030;
 
   /* sizes */
@@ -224,6 +225,11 @@ button:hover {
   margin: 0.5em 0;
 }
 
+.product-card__suggested-retail-price {
+  text-decoration: line-through;
+  color: var(--medium-grey);
+}
+
 .card__brand {
   font-size: var(--small-font);
   text-transform: uppercase;
@@ -245,7 +251,30 @@ button:hover {
   width: 100%;
 }
 
+<<<<<<< HEAD
 /* Cart layout view structures */
+=======
+/* Week02 Tasks: Discount and Retail Rice Indicator styling*/
+.discount-indicator {
+  color: white;
+  background-color: #d9534f;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* The grayed-out, crossed-out original price */
+.retail-price {
+  text-decoration: line-through;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Start cart list card styles */
+>>>>>>> origin/main
 .cart-card {
   display: grid;
   grid-template-columns: 25% auto 15%;

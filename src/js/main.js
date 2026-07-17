@@ -1,7 +1,8 @@
+HEAD;
 // src/js/main.js
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { qs, addToWishlist } from "./utils.mjs";
+import { addToWishlist, loadHeaderFooter, qs } from "./utils.mjs";
 
 const dataSource = new ProductData("tents");
 const listElement = qs(".product-list");
@@ -31,3 +32,11 @@ async function init() {
 }
 
 init();
+
+const listElement = document.getElementById("product-list");
+const category = "tents";
+const products = new ProductData(category);
+const productList = new ProductList(category, products, listElement);
+loadHeaderFooter();
+productList.init();
+origin / main;
