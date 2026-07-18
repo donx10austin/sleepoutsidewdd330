@@ -1,3 +1,4 @@
+import { categories } from "./ProductData.mjs";
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
@@ -28,17 +29,63 @@ function productCardTemplate(product) {
   </li>`;
 }
 
+function placeholderCardTemplate() {
+  return `<li class="product-card placeholder">
+    <a class="placeholder-link">
+      <div class="placeholder-image shimmer"></div>
+      <h2 class="card__brand">
+        <div class="placeholder-text shimmer" style="width: 60%;"></div>
+      </h2>
+      <h3 class="card__name">
+        <div class="placeholder-text shimmer" style="width: 85%;"></div>
+        <div class="placeholder-text shimmer" style="width: 70%; margin-top: 0.3em;"></div>
+      </h3>
+      <p class="product-card__price">
+        <div class="placeholder-text shimmer" style="width: 45%;"></div>
+      </p>
+    </a>
+  </li>`;
+}
+
 export default class ProductList {
   constructor(category, dataSource, listElement) {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.categories = categories;
   }
   async init() {
+    // Show placeholder cards while loading
+    this.renderPlaceholders(12);
+
     const list = await this.dataSource.getData(this.category);
-    this.renderList(list);
+
+    if (list.length > 0) {
+      this.renderList(list);
+    } else {
+      this.listElement.innerHTML = `<p>No products found for category: ${this.getCategoryName()}</p>`;
+    }
   }
+
+  getCategoryName() {
+    const categoryObj = this.categories.find((c) => c.id === this.category);
+    return categoryObj ? categoryObj.name : "Unknown Category";
+  }
+
+  renderPlaceholders(count) {
+    const placeholders = Array(count).fill(null);
+    this.listElement.innerHTML = placeholders
+      .map(() => placeholderCardTemplate())
+      .join("");
+  }
+
   renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list);
+    renderListWithTemplate(
+      productCardTemplate,
+      this.listElement,
+      list,
+      "afterbegin",
+      true,
+    );
   }
 }

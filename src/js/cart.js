@@ -5,31 +5,65 @@ import {
 } from "./utils.mjs";
 
 function renderCartContents() {
+  // Show placeholders while loading
+  renderCartPlaceholders(4);
+
+  // Simulate loading delay
   const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
-  attachRemoveListeners();
+
+  setTimeout(() => {
+    if (cartItems && cartItems.length > 0) {
+      const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+      document.querySelector(".product-list").innerHTML = htmlItems.join("");
+      attachRemoveListeners();
+    } else {
+      document.querySelector(".product-list").innerHTML =
+        "<p>Your cart is empty.</p>";
+    }
+  }, 250);
+}
+
+function renderCartPlaceholders(count) {
+  const placeholders = Array(count).fill(null);
+  document.querySelector(".product-list").innerHTML = placeholders
+    .map(() => cartPlaceholderTemplate())
+    .join("");
+}
+
+function cartPlaceholderTemplate() {
+  return `<li class="product-card placeholder">
+    <div class="placeholder-link">
+      <div class="placeholder-image shimmer"></div>
+      <h2 class="card__brand">
+        <div class="placeholder-text shimmer" style="width: 60%;"></div>
+      </h2>
+      <h3 class="card__name">
+        <div class="placeholder-text shimmer" style="width: 85%;"></div>
+        <div class="placeholder-text shimmer" style="width: 70%; margin-top: 0.3em;"></div>
+      </h3>
+      <p class="product-card__price">
+        <div class="placeholder-text shimmer" style="width: 45%;"></div>
+      </p>
+    </div>
+  </li>`;
 }
 
 function cartItemTemplate(item) {
+  const totalPrice = (item.FinalPrice * item.Quantity).toFixed(2);
+
   return `
-    <li class="cart-card divider">
-      <button class="remove-item" data-id="${item.Id}">✕</button>
-
-      <a href="#" class="cart-card__image">
-        <img
-          src="${item.Images.PrimaryLarge}"
-          alt="${item.Name}"
-        />
-      </a>
-
+    <li class="product-card cart-item">
+      <button class="remove-item" data-id="${item.Id}">
+        <span class="remove-item-icon">&times;</span>
+        Remove
+      </button>
       <a href="#">
-        <h2 class="card__name">${item.Name}</h2>
+        <img src="${item.Images.PrimaryLarge}" alt="Image of ${item.Name}">
+        <h2 class="card__brand">${item.Colors[0].ColorName}</h2>
+        <h3 class="card__name">${item.Name}</h3>
+        <p class="product-card__quantity">Qty: ${item.Quantity}</p>
+        <p class="product-card__price">$${totalPrice}</p>
       </a>
-
-      <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-      <p class="cart-card__quantity">Quantity: ${item.Quantity}</p>
-      <p class="cart-card__price">$${item.FinalPrice}</p>
     </li>
   `;
 }

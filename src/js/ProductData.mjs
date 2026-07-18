@@ -17,3 +17,10 @@ export default class ProductData {
     return data.Result;
   }
 }
+
+export const categories = [
+  { id: "tents", name: "Tents" },
+  { id: "backpacks", name: "Backpacks" },
+  { id: "sleeping-bags", name: "Sleeping Bags" },
+  { id: "hammocks", name: "Hammocks" },
+];
