@@ -121,4 +121,21 @@ export async function loadHeaderFooter() {
       window.location.href = `${baseUrl}product_listing/index.html?category=${searchTerm}`;
     });
   }
+
+  updateCartCount();
+}
+
+export function updateCartCount() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const cartCount = document.querySelector(".cart-count");
+
+  if (cartCount) {
+    cartCount.textContent = cartItems.length;
+
+    if (cartItems.length === 0) {
+      cartCount.style.display = "none";
+    } else {
+      cartCount.style.display = "inline-block";
+    }
+  }
 }
