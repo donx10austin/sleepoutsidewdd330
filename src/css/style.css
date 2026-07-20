@@ -400,3 +400,26 @@ footer {
   line-height: 18px;
   font-weight: bold;
 }
+
+.alert {
+  background-color: orange;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #333;
+}
+.alert span {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#quick-view-modal {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-width: 500px;
+}
+
+#quick-view-modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
