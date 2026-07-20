@@ -1,4 +1,4 @@
-import { checkout } from "./ExternalServices.mjs";
+import { checkout } from "./ProductData.mjs";
 import { alertMessage, getLocalStorage } from "./utils.mjs";
 
 export default class CheckoutProcess {
