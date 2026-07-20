@@ -412,3 +412,14 @@ footer {
   cursor: pointer;
   font-weight: bold;
 }
+
+#quick-view-modal {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-width: 500px;
+}
+
+#quick-view-modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
