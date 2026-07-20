@@ -27,7 +27,6 @@ export default class CheckoutProcess {
 
     try {
       const res = await checkout(json);
-      console.log(res);
       // Happy Path: Clear cart and redirect
       localStorage.removeItem(this.key);
       window.location.href = "../checkout/success.html";
