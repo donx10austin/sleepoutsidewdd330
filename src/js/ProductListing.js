@@ -3,15 +3,14 @@ import ProductList from "./ProductList.mjs";
 import { getParam, loadHeaderFooter } from "./utils.mjs";
 
 //Wk03:Product Search UI Formatting result and filtering all products
-const storeCategories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
+const categories = [
+  { id: "tents", name: "Tents" },
+  { id: "backpacks", name: "Backpacks" },
+  { id: "sleeping-bags", name: "Sleeping Bags" },
+  { id: "hammocks", name: "Hammocks" },
+];
 
 const topCategoryHeading = (categoryName) => {
-  const categories = [
-    { id: "tents", name: "Tents" },
-    { id: "backpacks", name: "Backpacks" },
-    { id: "sleeping-bags", name: "Sleeping Bags" },
-    { id: "hammocks", name: "Hammocks" },
-  ];
   const topProductsElement = document.getElementById("top-products");
 
   // Wk03: Product Search UI formatting and displaying the search result
@@ -38,19 +37,19 @@ async function initPage() {
   topCategoryHeading(categoryParam);
 
   //checking URL paramater and normal category
-  if (storeCategories.includes(categoryParam)) {
+  if (categories.some((c) => c.id === categoryParam)) {
     const products = new ProductData(categoryParam);
     const productList = new ProductList(categoryParam, products, listElement);
     productList.init();
   } else {
-    //The search beahavior is to fetch everyring and fiter it
+    //The search beahavior is to fetch everything and filter it
     const searchTerm = decodeURI(categoryParam).toLowerCase();
     let allProducts = [];
 
     //looping through all categories to get full product
-    for (const cat of storeCategories) {
-      const categoryData = new ProductData(cat);
-      const productsArray = await categoryData.getData();
+    for (const cat of categories) {
+      const categoryData = new ProductData(cat.id);
+      const productsArray = await categoryData.getData(cat.id);
       //combining everything into a list
       allProducts = allProducts.concat(productsArray);
     }
