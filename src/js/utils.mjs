@@ -140,37 +140,46 @@ export function updateCartCount() {
   }
 }
 
+// Convert a dollar amount to whole integer cents, avoiding floating point
+// artifacts like 19.999999999999996 (see Number.EPSILON trick).
+function toCents(value) {
+  return Math.round((value + Number.EPSILON) * 100);
+}
+
+// Round a monetary value to 2 decimal places.
+export function roundToCents(value) {
+  return toCents(value) / 100;
+}
+
 export function calculateItemSubTotal(cartItems) {
-  let subtotal = 0;
+  // Accumulate in integer cents inside the loop so repeated floating point
+  // addition can't drift; only convert back to dollars once, at the end.
+  let subtotalCents = 0;
   cartItems.forEach((item) => {
-    const itemSubtotal = item.FinalPrice * item.Quantity;
-    subtotal += itemSubtotal;
+    subtotalCents += toCents(item.FinalPrice) * item.Quantity;
   });
-  return subtotal;
+  return subtotalCents / 100;
 }
 
 export function calculateSummary(cartItems, rates) {
-  let subtotal = 0;
-  let taxesAmount = 0;
-  let shippingAmount = 0;
+  let subtotalCents = 0;
+  let shippingCents = 0;
 
   cartItems.forEach((item, index) => {
-    const itemSubtotal = item.FinalPrice * item.Quantity;
-    subtotal += itemSubtotal;
+    subtotalCents += toCents(item.FinalPrice) * item.Quantity;
     if (index == 0) {
-      shippingAmount += rates.shippingRate;
+      shippingCents += toCents(rates.shippingRate);
     } else {
-      shippingAmount += rates.shippingRateAddicional;
+      shippingCents += toCents(rates.shippingRateAddicional);
     }
   });
 
-  taxesAmount = subtotal * rates.taxRate;
-
-  const orderTotal = subtotal + taxesAmount + shippingAmount;
+  const taxesCents = Math.round(subtotalCents * rates.taxRate);
+  const orderTotalCents = subtotalCents + taxesCents + shippingCents;
 
   return {
-    orderTotal,
-    taxesAmount,
-    shippingAmount,
+    orderTotal: orderTotalCents / 100,
+    taxesAmount: taxesCents / 100,
+    shippingAmount: shippingCents / 100,
   };
 }

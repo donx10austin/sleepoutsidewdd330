@@ -48,18 +48,26 @@
             type="text"
             name="credit_cardnumber"
             required
+            value="1234123412341234"
           />
 
-          <label for="expiration_data">Expiration Date</label>
+          <label for="expiration_date">Expiration Date</label>
           <input
-            id="expiration_data"
-            type="text"
-            name="expiration_data"
+            id="expiration_date"
+            type="month"
+            name="expiration_date"
             required
+            value="2030-02"
           />
 
           <label for="security_code">Security Code</label>
-          <input id="security_code" type="text" name="security_code" required />
+          <input
+            id="security_code"
+            type="text"
+            name="security_code"
+            required
+            value="123"
+          />
 
           <button id="checkout_order">Checkout</button>
         </form>

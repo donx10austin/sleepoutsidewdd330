@@ -13,15 +13,9 @@ function initializeCheckoutButton(
       return;
     }
 
-    const firstameElement = document.getElementById("firstname");
-    const lastnameElement = document.getElementById("lastname");
-    const cityElement = document.getElementById("city");
-    const stateElement = document.getElementById("state");
-    const zipCodeElement = document.getElementById("zip_code");
-    const securityCodeElement = document.getElementById("security_code");
-
-    if (zipCodeElement.value) {
+    if (checkoutFormElement.zip_code.value) {
       checkoutProcess.calculateSummary();
+      checkoutProcess.checkout(checkoutFormElement);
     } else {
       alert("Zip Code is required");
     }
