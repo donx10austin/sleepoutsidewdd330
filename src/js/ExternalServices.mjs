@@ -2,7 +2,7 @@ import { convertToJson } from "./utils.mjs";
 
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     this.category = category;
   }
