@@ -1,4 +1,4 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductList from "./ProductList.mjs";
 import { getParam, loadHeaderFooter } from "./utils.mjs";
 
@@ -38,7 +38,7 @@ async function initPage() {
 
   //checking URL paramater and normal category
   if (categories.some((c) => c.id === categoryParam)) {
-    const products = new ProductData(categoryParam);
+    const products = new ExternalServices(categoryParam);
     const productList = new ProductList(categoryParam, products, listElement);
     productList.init();
   } else {
@@ -48,7 +48,7 @@ async function initPage() {
 
     //looping through all categories to get full product
     for (const cat of categories) {
-      const categoryData = new ProductData(cat.id);
+      const categoryData = new ExternalServices(cat.id);
       const productsArray = await categoryData.getData(cat.id);
       //combining everything into a list
       allProducts = allProducts.concat(productsArray);

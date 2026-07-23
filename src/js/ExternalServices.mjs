@@ -1,8 +1,9 @@
+import OrderResponse from "./OrderResponse.mjs";
 import { convertToJson } from "./utils.mjs";
 
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     this.category = category;
   }
@@ -15,5 +16,16 @@ export default class ProductData {
     const response = await fetch(`${baseURL}product/${id}`);
     const data = await convertToJson(response);
     return data.Result;
+  }
+  async checkout(orderSummary) {
+    const response = await fetch(`${baseURL}checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderSummary),
+    });
+    const data = await convertToJson(response);
+    return new OrderResponse(data);
   }
 }

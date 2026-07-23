@@ -139,3 +139,47 @@ export function updateCartCount() {
     }
   }
 }
+
+// Convert a dollar amount to whole integer cents, avoiding floating point
+// artifacts like 19.999999999999996 (see Number.EPSILON trick).
+function toCents(value) {
+  return Math.round((value + Number.EPSILON) * 100);
+}
+
+// Round a monetary value to 2 decimal places.
+export function roundToCents(value) {
+  return toCents(value) / 100;
+}
+
+export function calculateItemSubTotal(cartItems) {
+  // Accumulate in integer cents inside the loop so repeated floating point
+  // addition can't drift; only convert back to dollars once, at the end.
+  let subtotalCents = 0;
+  cartItems.forEach((item) => {
+    subtotalCents += toCents(item.FinalPrice) * item.Quantity;
+  });
+  return subtotalCents / 100;
+}
+
+export function calculateSummary(cartItems, rates) {
+  let subtotalCents = 0;
+  let shippingCents = 0;
+
+  cartItems.forEach((item, index) => {
+    subtotalCents += toCents(item.FinalPrice) * item.Quantity;
+    if (index == 0) {
+      shippingCents += toCents(rates.shippingRate);
+    } else {
+      shippingCents += toCents(rates.shippingRateAddicional);
+    }
+  });
+
+  const taxesCents = Math.round(subtotalCents * rates.taxRate);
+  const orderTotalCents = subtotalCents + taxesCents + shippingCents;
+
+  return {
+    orderTotal: orderTotalCents / 100,
+    taxesAmount: taxesCents / 100,
+    shippingAmount: shippingCents / 100,
+  };
+}
